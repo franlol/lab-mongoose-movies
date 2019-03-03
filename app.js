@@ -5,10 +5,21 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+// const Celebrity = require('./models/Celebrity');
 
 const indexRouter = require('./routes/index');
 
 const app = express();
+
+// const dataSeed = require('./bin/seeds');
+// const dataFeed = async () => {
+//     try {
+//         await Celebrity.insertMany(dataSeed);
+//     } catch (err) {
+//         console.log(err);
+//     }
+// };
+// dataFeed();
 
 mongoose.connect('mongodb://localhost/movies', {
     keepAlive: true,
