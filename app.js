@@ -5,12 +5,15 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
-// const Celebrity = require('./models/Celebrity');
 
 const indexRouter = require('./routes/index');
+const celebritiesRouter = require('./routes/celebrities');
+const moviesRouter = require('./routes/movies');
 
 const app = express();
 
+// const Celebrity = require('./models/Celebrity');
+// const Movies = require("./models/Movie")
 // const dataSeed = require('./bin/seeds');
 // const dataFeed = async () => {
 //     try {
@@ -38,13 +41,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/celebrities', celebritiesRouter);
+app.use('/movies', moviesRouter);
 
 // -- 404 and error handler
-
 // NOTE: requires a views/not-found.ejs template
 app.use((req, res, next) => {
     res.status(404);
-    res.render('not-found');
+    res.render('errors/not-found');
 });
 
 // NOTE: requires a views/error.ejs template
@@ -55,7 +59,7 @@ app.use((err, req, res, next) => {
     // only render if the error ocurred before sending the response
     if (!res.headersSent) {
         res.status(500);
-        res.render('error');
+        res.render('errors/error');
     }
 });
 
